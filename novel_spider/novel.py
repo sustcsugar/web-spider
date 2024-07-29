@@ -53,7 +53,7 @@ class downloader(object):
             f.writelines(text)
             f.write('\n\n')
 
-def download_by_name(book_name,book_url,book_index):
+def download_by_url(book_name,book_url,book_index):
     dl = downloader(book_url,book_index)
     dl.get_chapter_url()
 
@@ -62,7 +62,7 @@ def download_by_name(book_name,book_url,book_index):
         sleep_time = random.uniform(1, 3)  # 随机等待1到3秒
         time.sleep(sleep_time*0.001)
         dl.write_file(f'{book_name}.txt',dl.names[i],dl.word[i],dl.get_content(dl.names[i],dl.urls[i]))
-        sys.stdout.write("  已下载:%.3f%%" %  float(i/dl.nums) + '\r')
+        sys.stdout.write("  已下载:%.3f%%" %  (float(i/dl.nums)*100) + '\r')
         sys.stdout.flush()
     print('下载完成')
 
@@ -86,7 +86,7 @@ def book_search(keyword):
 
 def search_download(search_name):
     book_name,book_url,book_index = book_search(search_name)
-    download_by_name(book_name,book_url,book_index)
+    download_by_url(book_name,book_url,book_index)
 
 if __name__ == '__main__':
-    search_download('星辰变')
+    search_download('长生仙游')
